@@ -108,10 +108,37 @@ body {
     margin: 0 auto;
 }
 
+.nav-logo {
+    text-decoration: none;
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.nav-logo:hover {
+    transform: scale(1.1);
+}
+
 .nav-logo h2 {
     color: var(--primary-color);
     font-size: 1.8rem;
     font-weight: 700;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.nav-logo:hover h2 {
+    text-shadow: 0 0 20px rgba(254, 88, 0, 0.5);
+    animation: glow 1.5s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%, 100% {
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(1.2);
+    }
 }
 
 .nav-menu {
@@ -444,11 +471,28 @@ section {
     align-items: center;
     gap: 1rem;
     margin-bottom: 1rem;
-    padding: 0.75rem;
+    padding: 0.75rem 1rem;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    transition: transform 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.highlight-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(254, 88, 0, 0.05), transparent);
+    transition: left 0.6s ease;
+}
+
+.highlight-item:hover::before {
+    left: 100%;
 }
 
 [data-theme="dark"] .highlight-item {
@@ -458,56 +502,74 @@ section {
 
 .highlight-item:hover {
     transform: translateX(10px);
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 15px rgba(254, 88, 0, 0.2);
+}
+
+[data-theme="dark"] .highlight-item:hover {
+    background: rgba(254, 88, 0, 0.08);
+    box-shadow: 0 4px 20px rgba(254, 88, 0, 0.3);
+}
+
+[data-theme="light"] .highlight-item:hover {
+    background: rgba(254, 88, 0, 0.03);
 }
 
 .highlight-item i {
     color: var(--success-color);
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    transition: transform 0.3s ease;
+    animation: pulseIcon 2s infinite;
 }
 
-.awards {
-    margin-top: 3rem;
+.highlight-item:hover i {
+    transform: scale(1.2) rotate(10deg);
+    animation: none;
 }
 
-.awards h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
+.highlight-item span {
     color: var(--text-dark);
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.5;
+    transition: color 0.3s ease;
 }
 
-.award-items {
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
+.highlight-item:hover span {
+    background: var(--gradient-orange);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-.award-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1rem 1.5rem;
-    background-color: var(--card-bg);
-    border-radius: 8px;
-    border: 2px solid var(--border-color);
-    transition: all 0.3s ease;
+/* Animation for highlight icons */
+@keyframes pulseIcon {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
 }
 
-.award-item:hover {
-    border-color: var(--primary-color);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+/* Stagger animation on load */
+.highlight-item {
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideInHighlight 0.5s ease forwards;
 }
 
-.award-item i {
-    color: gold;
-    font-size: 1.5rem;
-}
+.highlight-item:nth-child(1) { animation-delay: 0.1s; }
+.highlight-item:nth-child(2) { animation-delay: 0.2s; }
+.highlight-item:nth-child(3) { animation-delay: 0.3s; }
+.highlight-item:nth-child(4) { animation-delay: 0.4s; }
+.highlight-item:nth-child(5) { animation-delay: 0.5s; }
 
-.award-icon {
-    width: 24px;
-    height: 24px;
-    object-fit: contain;
-    filter: brightness(1);
+@keyframes slideInHighlight {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 /* Tech Stack Section */
@@ -644,6 +706,22 @@ section {
     top: 20px;
     border-radius: 50%;
     z-index: 1;
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(254, 88, 0, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(254, 88, 0, 0);
+    }
+}
+
+.timeline-item:hover::after {
+    transform: scale(1.3);
+    background: var(--gradient-orange);
 }
 
 .timeline-item:nth-child(odd)::after {
@@ -666,7 +744,24 @@ section {
     border: 1px solid var(--border-color);
     border-radius: 12px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.timeline-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(254, 88, 0, 0.05), transparent);
+    transition: left 0.6s ease;
+}
+
+.timeline-content:hover::before {
+    left: 100%;
 }
 
 [data-theme="dark"] .timeline-content {
@@ -677,18 +772,48 @@ section {
 }
 
 .timeline-content:hover {
-    transform: scale(1.02);
+    transform: scale(1.03) translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: 0 10px 30px rgba(254, 88, 0, 0.2);
+}
+
+[data-theme="dark"] .timeline-content:hover {
+    background: rgba(254, 88, 0, 0.08);
+    box-shadow: 0 10px 40px rgba(254, 88, 0, 0.3);
+}
+
+[data-theme="light"] .timeline-content:hover {
+    background: rgba(254, 88, 0, 0.03);
 }
 
 .timeline-content h3 {
     color: var(--text-dark);
     margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+.timeline-content:hover h3 {
+    background: var(--gradient-orange);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .timeline-content h4 {
     color: var(--text-light);
     margin-bottom: 1rem;
     font-weight: 500;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.timeline-content h4::before {
+    content: '📍';
+    font-size: 1rem;
 }
 
 .timeline-content ul {
@@ -698,31 +823,69 @@ section {
 
 .timeline-content li {
     color: var(--text-light);
-    margin-bottom: 0.5rem;
-    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    padding-left: 2rem;
     position: relative;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    line-height: 1.6;
 }
 
 .timeline-content li::before {
-    content: '▸';
+    content: '●';
     position: absolute;
     left: 0;
     color: var(--primary-color);
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.timeline-content:hover li {
+    padding-left: 2.5rem;
+}
+
+.timeline-content:hover li::before {
+    transform: scale(1.3);
+    left: 0.5rem;
 }
 
 .tech-used {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
 }
 
 .tech-used span {
-    padding: 0.3rem 0.8rem;
-    background-color: var(--section-bg);
+    padding: 0.4rem 1rem;
+    background: linear-gradient(135deg, var(--card-bg) 0%, var(--section-bg) 100%);
     color: var(--text-dark);
-    border-radius: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
     font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.tech-used span:hover {
+    background: var(--gradient-orange);
+    color: white;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 12px rgba(254, 88, 0, 0.3);
+    border-color: transparent;
+}
+
+[data-theme="dark"] .tech-used span {
+    background: rgba(45, 45, 45, 0.5);
+    border-color: rgba(254, 88, 0, 0.3);
+}
+
+[data-theme="dark"] .tech-used span:hover {
+    background: var(--gradient-orange);
+    border-color: transparent;
 }
 
 /* Projects Section */
