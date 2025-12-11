@@ -1,12 +1,10 @@
 // Dark Mode Toggle
 const themeToggle = document.getElementById('theme-toggle');
 const body = document.body;
-const themeIcon = themeToggle.querySelector('i');
 
 // Check for saved theme preference or default to dark mode
 const savedTheme = localStorage.getItem('theme') || 'dark';
 body.setAttribute('data-theme', savedTheme);
-updateThemeIcon(savedTheme);
 
 themeToggle.addEventListener('click', () => {
     const currentTheme = body.getAttribute('data-theme');
@@ -14,18 +12,7 @@ themeToggle.addEventListener('click', () => {
     
     body.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
-    updateThemeIcon(newTheme);
 });
-
-function updateThemeIcon(theme) {
-    if (theme === 'dark') {
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-    } else {
-        themeIcon.classList.remove('fa-sun');
-        themeIcon.classList.add('fa-moon');
-    }
-}
 
 // Mobile Navigation Toggle
 const navToggle = document.getElementById('nav-toggle');
