@@ -3,8 +3,8 @@ const themeToggle = document.getElementById('theme-toggle');
 const body = document.body;
 const themeIcon = themeToggle.querySelector('i');
 
-// Check for saved theme preference or default to light mode
-const savedTheme = localStorage.getItem('theme') || 'light';
+// Check for saved theme preference or default to dark mode
+const savedTheme = localStorage.getItem('theme') || 'dark';
 body.setAttribute('data-theme', savedTheme);
 updateThemeIcon(savedTheme);
 
@@ -81,15 +81,19 @@ let lastScroll = 0;
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
     
-    if (currentScroll <= 0) {
-        navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-    } else if (currentScroll > lastScroll) {
+    // Add/remove scrolled class for transparency
+    if (currentScroll > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+    
+    if (currentScroll > lastScroll && currentScroll > 100) {
         // Scrolling down
         navbar.style.transform = 'translateY(-100%)';
     } else {
         // Scrolling up
         navbar.style.transform = 'translateY(0)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.15)';
     }
     
     lastScroll = currentScroll;
