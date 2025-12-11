@@ -22,11 +22,11 @@
     --secondary-color: #FF7300;
     --text-dark: #2d2d2d;
     --text-light: #676767;
-    --background: #ffffff;
-    --section-bg: #f9f9f9;
-    --card-bg: #ffffff;
-    --border-color: #e0e0e0;
-    --nav-bg: rgba(255, 255, 255, 0.95);
+    --background: #e6e4e0;
+    --section-bg: #f0edea;
+    --card-bg: #f5f3f0;
+    --border-color: #d0cec8;
+    --nav-bg: rgba(230, 228, 224, 0.95);
     --success-color: #FE5800;
     --accent-color: #FF7300;
     --gradient-orange: linear-gradient(135deg, #FE5800 0%, #FF7300 100%);
@@ -90,8 +90,8 @@ body {
 
 [data-theme="light"] .navbar.scrolled {
     background: linear-gradient(135deg,
-                rgba(255, 255, 255, 0.7) 0%,
-                rgba(255, 255, 255, 0.6) 100%);
+                rgba(230, 228, 224, 0.7) 0%,
+                rgba(245, 243, 240, 0.6) 100%);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
