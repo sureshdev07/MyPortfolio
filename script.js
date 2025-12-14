@@ -1,9 +1,9 @@
-// Dark Mode Toggle
+// Theme Toggle
 const themeToggle = document.getElementById('theme-toggle');
 const body = document.body;
 
-// Check for saved theme preference or default to dark mode
-const savedTheme = localStorage.getItem('theme') || 'dark';
+// Check for saved theme preference or default to light mode
+const savedTheme = localStorage.getItem('theme') || 'light';
 body.setAttribute('data-theme', savedTheme);
 
 themeToggle.addEventListener('click', () => {
