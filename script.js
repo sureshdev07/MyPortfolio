@@ -2,8 +2,8 @@
 const themeToggle = document.getElementById('theme-toggle');
 const body = document.body;
 
-// Check for saved theme preference or default to light mode
-const savedTheme = localStorage.getItem('theme') || 'light';
+// Check for saved theme preference or default to dark mode
+const savedTheme = localStorage.getItem('theme') || 'dark';
 body.setAttribute('data-theme', savedTheme);
 
 themeToggle.addEventListener('click', () => {
@@ -224,6 +224,65 @@ function validateEmail(email) {
 // Preloader (Optional)
 window.addEventListener('load', () => {
     document.body.classList.add('loaded');
+});
+
+// Video Modal (YouTube)
+const videoModal = document.getElementById('video-modal');
+const videoModalClose = document.getElementById('video-modal-close');
+const videoModalIframe = document.getElementById('video-modal-iframe');
+
+function openVideoModal(videoId) {
+    if (!videoModal || !videoModalIframe) return;
+
+    // Use privacy-enhanced domain, and only autoplay after user click
+    videoModalIframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+    videoModal.classList.add('is-open');
+    videoModal.setAttribute('aria-hidden', 'false');
+
+    // Prevent background scroll
+    document.body.style.overflow = 'hidden';
+}
+
+function closeVideoModal() {
+    if (!videoModal || !videoModalIframe) return;
+
+    videoModal.classList.remove('is-open');
+    videoModal.setAttribute('aria-hidden', 'true');
+
+    // Stop playback by clearing iframe src
+    videoModalIframe.src = '';
+
+    document.body.style.overflow = '';
+}
+
+// Open from any button with data-video-id
+document.querySelectorAll('.js-open-video').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const videoId = btn.getAttribute('data-video-id');
+        if (videoId) openVideoModal(videoId);
+    });
+});
+
+// Close button
+if (videoModalClose) {
+    videoModalClose.addEventListener('click', closeVideoModal);
+}
+
+// Close on backdrop click
+if (videoModal) {
+    videoModal.addEventListener('click', (e) => {
+        const target = e.target;
+        if (target && target.getAttribute && target.getAttribute('data-close') === 'true') {
+            closeVideoModal();
+        }
+    });
+}
+
+// Close on ESC
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && videoModal && videoModal.classList.contains('is-open')) {
+        closeVideoModal();
+    }
 });
 
 // Console Easter Egg

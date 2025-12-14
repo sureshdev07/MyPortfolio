@@ -28,3 +28,7 @@ package-lock.json
 # Build directories (if you add build tools later)
 dist/
 build/
+
+# Large media files
+videos/
+*.mp4
